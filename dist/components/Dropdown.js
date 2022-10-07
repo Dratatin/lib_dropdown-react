@@ -1,27 +1,41 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard").default;
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault").default;
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-require("core-js/modules/web.dom-collections.iterator.js");
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/slicedToArray"));
 
 require("./style.css");
 
 var _fullArrow = _interopRequireDefault(require("./full-arrow.svg"));
 
-var _react = require("react");
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var useAccessibleDropdown = function useAccessibleDropdown(options, value, setValue) {
+  var _useState = (0, _react.useState)(false),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      isDropdownOpen = _useState2[0],
+      setIsDropdownOpen = _useState2[1];
 
-const useAccessibleDropdown = (options, value, setValue) => {
-  const [isDropdownOpen, setIsDropdownOpen] = (0, _react.useState)(false);
-  const [isFocus, setIsFocus] = (0, _react.useState)(false);
-  const [activeIndex, setActiveIndex] = (0, _react.useState)(0);
-  const wrapperRef = (0, _react.useRef)(null);
+  var _useState3 = (0, _react.useState)(false),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      isFocus = _useState4[0],
+      setIsFocus = _useState4[1];
 
-  const handleKeyDown = e => {
+  var _useState5 = (0, _react.useState)(0),
+      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
+      activeIndex = _useState6[0],
+      setActiveIndex = _useState6[1];
+
+  var wrapperRef = (0, _react.useRef)(null);
+
+  var handleKeyDown = function handleKeyDown(e) {
     if (isDropdownOpen) {
       openDropdownHandler(e);
     } else {
@@ -29,7 +43,7 @@ const useAccessibleDropdown = (options, value, setValue) => {
     }
   };
 
-  const openDropdownHandler = e => {
+  var openDropdownHandler = function openDropdownHandler(e) {
     e.preventDefault();
 
     switch (e.key) {
@@ -75,7 +89,7 @@ const useAccessibleDropdown = (options, value, setValue) => {
     }
   };
 
-  const closedDropdownHandler = e => {
+  var closedDropdownHandler = function closedDropdownHandler(e) {
     switch (e.key) {
       case 'Up':
       case 'ArrowUp':
@@ -86,15 +100,17 @@ const useAccessibleDropdown = (options, value, setValue) => {
       case 'Enter':
         e.preventDefault();
         setIsDropdownOpen(true);
-        setActiveIndex(options.findIndex(option => option === value));
+        setActiveIndex(options.findIndex(function (option) {
+          return option === value;
+        }));
         break;
 
       default:
     }
   };
 
-  (0, _react.useEffect)(() => {
-    const handleClickOutside = event => {
+  (0, _react.useEffect)(function () {
+    var handleClickOutside = function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
@@ -102,54 +118,57 @@ const useAccessibleDropdown = (options, value, setValue) => {
 
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
+    return function () {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
   return {
-    isDropdownOpen,
-    isFocus,
-    activeIndex,
-    setIsDropdownOpen,
-    setIsFocus,
-    setActiveIndex,
-    handleKeyDown,
-    wrapperRef
+    isDropdownOpen: isDropdownOpen,
+    isFocus: isFocus,
+    activeIndex: activeIndex,
+    setIsDropdownOpen: setIsDropdownOpen,
+    setIsFocus: setIsFocus,
+    setActiveIndex: setActiveIndex,
+    handleKeyDown: handleKeyDown,
+    wrapperRef: wrapperRef
   };
 };
 
 function Dropdown(_ref) {
-  let {
-    options,
-    value,
-    setValue,
-    name,
-    labelId
-  } = _ref;
-  const [input, setInput] = (0, _react.useState)(options[0]);
-  const {
-    isDropdownOpen,
-    isFocus,
-    activeIndex,
-    setIsDropdownOpen,
-    setIsFocus,
-    setActiveIndex,
-    handleKeyDown,
-    wrapperRef
-  } = useAccessibleDropdown(options, input, setInput);
-  (0, _react.useEffect)(() => {
+  var options = _ref.options,
+      value = _ref.value,
+      setValue = _ref.setValue,
+      name = _ref.name,
+      labelId = _ref.labelId;
+
+  var _useState7 = (0, _react.useState)(options[0]),
+      _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
+      input = _useState8[0],
+      setInput = _useState8[1];
+
+  var _useAccessibleDropdow = useAccessibleDropdown(options, input, setInput),
+      isDropdownOpen = _useAccessibleDropdow.isDropdownOpen,
+      isFocus = _useAccessibleDropdow.isFocus,
+      activeIndex = _useAccessibleDropdow.activeIndex,
+      setIsDropdownOpen = _useAccessibleDropdow.setIsDropdownOpen,
+      setIsFocus = _useAccessibleDropdow.setIsFocus,
+      setActiveIndex = _useAccessibleDropdow.setActiveIndex,
+      handleKeyDown = _useAccessibleDropdow.handleKeyDown,
+      wrapperRef = _useAccessibleDropdow.wrapperRef;
+
+  (0, _react.useEffect)(function () {
     if (value && setValue) {
       setValue(input);
     }
   }, [input]);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement("div", {
     className: "dropdown-ctn ".concat(name ? name + "-ctn" : ""),
     ref: wrapperRef,
     onKeyDown: handleKeyDown
-  }, /*#__PURE__*/React.createElement("button", {
+  }, /*#__PURE__*/_react.default.createElement("button", {
     className: "dropdown-btn ".concat(name ? name + "-btn" : ""),
-    onClick: () => {
+    onClick: function onClick() {
       setIsDropdownOpen(!isDropdownOpen);
     },
     role: "combobox",
@@ -158,35 +177,43 @@ function Dropdown(_ref) {
     "aria-labelledby": labelId,
     "aria-expanded": isDropdownOpen,
     "aria-activedescendant": "".concat(name, "_element_").concat(input),
-    onFocus: () => setIsFocus(true),
-    onBlur: () => setIsFocus(false)
-  }, /*#__PURE__*/React.createElement("span", {
+    onFocus: function onFocus() {
+      return setIsFocus(true);
+    },
+    onBlur: function onBlur() {
+      return setIsFocus(false);
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
     className: "dropdown-btn-content ".concat(name ? name + "-btn-content" : "")
-  }, input), /*#__PURE__*/React.createElement("img", {
+  }, input), /*#__PURE__*/_react.default.createElement("img", {
     src: _fullArrow.default,
     alt: "full arrow icon",
     className: "dropdown-btn-icon ".concat(name ? name + "-icon" : "")
-  })), /*#__PURE__*/React.createElement("ul", {
+  })), /*#__PURE__*/_react.default.createElement("ul", {
     className: "dropdown-list ".concat(name ? name + "-list" : ""),
     role: "listbox",
     tabIndex: -1,
     "aria-multiselectable": false
-  }, options.map((option, index) => /*#__PURE__*/React.createElement("li", {
-    key: option,
-    role: "option",
-    "aria-selected": index === activeIndex,
-    className: "dropdown-option ".concat(name ? name + "-opt" : "", " ").concat(option === input ? "chosen" : ""),
-    onMouseOver: () => setActiveIndex(index)
-  }, /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("input", {
-    type: "radio",
-    name: "".concat(name, "_radio"),
-    checked: option === input,
-    className: "radio",
-    onChange: () => {
-      setInput(option);
-      setIsDropdownOpen(false);
-    }
-  }), option)))));
+  }, options.map(function (option, index) {
+    return /*#__PURE__*/_react.default.createElement("li", {
+      key: option,
+      role: "option",
+      "aria-selected": index === activeIndex,
+      className: "dropdown-option ".concat(name ? name + "-opt" : "", " ").concat(option === input ? "chosen" : ""),
+      onMouseOver: function onMouseOver() {
+        return setActiveIndex(index);
+      }
+    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+      type: "radio",
+      name: "".concat(name, "_radio"),
+      checked: option === input,
+      className: "radio",
+      onChange: function onChange() {
+        setInput(option);
+        setIsDropdownOpen(false);
+      }
+    }), option));
+  })));
 }
 
 var _default = Dropdown;

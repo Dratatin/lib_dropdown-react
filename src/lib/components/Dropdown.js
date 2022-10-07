@@ -1,6 +1,6 @@
 import "./style.css";
 import Arrow from "./full-arrow.svg";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const useAccessibleDropdown = (options, value, setValue) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
