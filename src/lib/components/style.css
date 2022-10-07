@@ -1,0 +1,114 @@
+.dropdown-ctn {
+    position: relative;
+    display: flex;
+    width: 150px;
+}
+
+.dropdown-ctn * {
+    box-sizing: border-box;
+}
+
+.dropdown-btn {
+    padding: 8px 10px;
+    gap: 10px;
+    background: rgb(247, 247, 247);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 0.5em;
+}
+
+.dropdown-btn .dropdown-btn-icon {
+    width: 8px;
+}
+
+.dropdown-btn .dropdown-btn-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+.dropdown-list {
+    margin: 0;
+    padding: 0;
+    background: rgb(247, 247, 247);
+    top: 110%;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    width: 100%;
+    border-radius: 0.5em;
+    visibility: hidden;
+    list-style-type: none;
+}
+
+.dropdown-list .dropdown-option {
+    font-family: inherit;
+}
+
+.dropdown-list .dropdown-option label {
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.5em 1em;
+    display: block;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.dropdown-btn[aria-expanded=true]+.dropdown-list {
+    animation: fadein 0.3s ease-in-out forwards;
+}
+
+.dropdown-btn[aria-expanded=true] .dropdown-btn-icon {
+    animation: rotate 0.3s ease-in-out forwards;
+}
+
+.dropdown-option[aria-selected=true] {
+    background-color: rgb(235, 235, 235);
+}
+
+.dropdown-option.chosen {
+    background: lightgrey;
+}
+
+.radio {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+        pointer-events: none;
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0px);
+        pointer-events: initial;
+    }
+}
+
+@keyframes rotate {
+    from {}
+
+    to {
+        transform: rotate(180deg);
+    }
+}
