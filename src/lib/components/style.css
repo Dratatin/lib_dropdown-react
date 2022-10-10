@@ -25,11 +25,11 @@
     text-transform: capitalize;
 }
 
-.wd-dropdown__btn .wd-dropdown__btn__icon {
+.wd-dropdown__btn__icon {
     width: 8px;
 }
 
-.wd-dropdown__btn .wd-dropdown__btn__content {
+.wd-dropdown__btn__value {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -63,7 +63,7 @@
     font-family: inherit;
 }
 
-.wd-dropdown__list__item .wd-dropdown__list__item__content {
+.wd-dropdown__list__item__content {
     text-transform: capitalize;
     white-space: nowrap;
     overflow: hidden;
