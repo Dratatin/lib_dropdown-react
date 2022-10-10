@@ -1,7 +1,7 @@
 .wd-dropdown {
     position: relative;
-    display: flex;
-    width: 150px;
+    display: block;
+    width: 100%;
 }
 
 .wd-dropdown * {
@@ -10,10 +10,10 @@
 
 .wd-dropdown__btn {
     display: flex;
-    flex: 1;
+    width: 100%;
+    min-width: 0;
     justify-content: space-between;
     align-items: baseline;
-    min-width: 0;
     padding: 8px 10px;
     gap: 10px;
     background: rgb(247, 247, 247);
