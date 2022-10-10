@@ -9,31 +9,31 @@
 }
 
 .wd-dropdown__btn {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: baseline;
+    min-width: 0;
     padding: 8px 10px;
     gap: 10px;
     background: rgb(247, 247, 247);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
     font-family: inherit;
     font-size: inherit;
-    position: relative;
     border: none;
     cursor: pointer;
-    width: 100%;
     border-radius: 0.5em;
-    text-transform: capitalize;
 }
 
 .wd-dropdown__btn__icon {
+    flex-shrink: 0;
     width: 8px;
 }
 
 .wd-dropdown__btn__value {
+    text-transform: capitalize;
+    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
 }
 
 .wd-dropdown__btn[aria-expanded=true] .wd-dropdown__btn__icon {
