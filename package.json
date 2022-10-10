@@ -2,7 +2,7 @@
   "name": "@dratatin/dropdown-react",
   "description": "simple dropdown component",
   "author": "dratatin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
