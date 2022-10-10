@@ -140,7 +140,8 @@ function Dropdown(_ref) {
       value = _ref.value,
       setValue = _ref.setValue,
       name = _ref.name,
-      labelId = _ref.labelId;
+      className = _ref.className,
+      labelledby = _ref.labelledby;
 
   var _useState7 = (0, _react.useState)(options[0]),
       _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
@@ -163,18 +164,18 @@ function Dropdown(_ref) {
     }
   }, [input]);
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "dropdown-ctn ".concat(name ? name + "-ctn" : ""),
+    className: "wd-dropdown ".concat(className ? className : ""),
     ref: wrapperRef,
     onKeyDown: handleKeyDown
   }, /*#__PURE__*/_react.default.createElement("button", {
-    className: "dropdown-btn ".concat(name ? name + "-btn" : ""),
+    className: "wd-dropdown__btn ".concat(className ? className + "__btn" : ""),
     onClick: function onClick() {
       setIsDropdownOpen(!isDropdownOpen);
     },
     role: "combobox",
     "aria-haspopup": "listbox",
     "aria-controls": "".concat(name, "_dropdown"),
-    "aria-labelledby": labelId,
+    "aria-labelledby": labelledby,
     "aria-expanded": isDropdownOpen,
     "aria-activedescendant": "".concat(name, "_element_").concat(input),
     onFocus: function onFocus() {
@@ -184,26 +185,30 @@ function Dropdown(_ref) {
       return setIsFocus(false);
     }
   }, /*#__PURE__*/_react.default.createElement("span", {
-    className: "dropdown-btn-content ".concat(name ? name + "-btn-content" : "")
+    className: "wd-dropdown__btn__value ".concat(className ? className + "__btn__value" : "")
   }, input), /*#__PURE__*/_react.default.createElement("img", {
     src: _fullArrow.default,
     alt: "full arrow icon",
-    className: "dropdown-btn-icon ".concat(name ? name + "-icon" : "")
+    className: "wd-dropdown__btn__icon ".concat(className ? className + "__btn__icon" : "")
   })), /*#__PURE__*/_react.default.createElement("ul", {
-    className: "dropdown-list ".concat(name ? name + "-list" : ""),
+    className: "wd-dropdown__list ".concat(className ? className + "__list" : ""),
+    id: "".concat(name, "_dropdown"),
     role: "listbox",
     tabIndex: -1,
     "aria-multiselectable": false
   }, options.map(function (option, index) {
     return /*#__PURE__*/_react.default.createElement("li", {
       key: option,
+      id: "".concat(name, "_element_").concat(option),
       role: "option",
       "aria-selected": index === activeIndex,
-      className: "dropdown-option ".concat(name ? name + "-opt" : "", " ").concat(option === input ? "chosen" : ""),
+      className: "wd-dropdown__list__item ".concat(className ? className + "__list__item" : "", " ").concat(option === input ? "chosen" : ""),
       onMouseOver: function onMouseOver() {
         return setActiveIndex(index);
       }
-    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "wd-dropdown__list__item__content ".concat(className ? className + "__list__item__content" : "")
+    }, /*#__PURE__*/_react.default.createElement("input", {
       type: "radio",
       name: "".concat(name, "_radio"),
       checked: option === input,
@@ -216,5 +221,8 @@ function Dropdown(_ref) {
   })));
 }
 
+Dropdown.defaultProps = {
+  name: "basic"
+};
 var _default = Dropdown;
 exports.default = _default;

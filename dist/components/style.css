@@ -1,14 +1,14 @@
-.dropdown-ctn {
+.wd-dropdown {
     position: relative;
     display: flex;
     width: 150px;
 }
 
-.dropdown-ctn * {
+.wd-dropdown * {
     box-sizing: border-box;
 }
 
-.dropdown-btn {
+.wd-dropdown__btn {
     padding: 8px 10px;
     gap: 10px;
     background: rgb(247, 247, 247);
@@ -22,20 +22,25 @@
     cursor: pointer;
     width: 100%;
     border-radius: 0.5em;
+    text-transform: capitalize;
 }
 
-.dropdown-btn .dropdown-btn-icon {
+.wd-dropdown__btn .wd-dropdown__btn__icon {
     width: 8px;
 }
 
-.dropdown-btn .dropdown-btn-content {
+.wd-dropdown__btn .wd-dropdown__btn__content {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-transform: capitalize;
 }
 
-.dropdown-list {
+.wd-dropdown__btn[aria-expanded=true] .wd-dropdown__btn__icon {
+    animation: rotate 0.3s ease-in-out forwards;
+}
+
+.wd-dropdown__list {
     margin: 0;
     padding: 0;
     background: rgb(247, 247, 247);
@@ -50,11 +55,15 @@
     list-style-type: none;
 }
 
-.dropdown-list .dropdown-option {
+.wd-dropdown__btn[aria-expanded=true]+.wd-dropdown__list {
+    animation: fadein 0.3s ease-in-out forwards;
+}
+
+.wd-dropdown__list__item {
     font-family: inherit;
 }
 
-.dropdown-list .dropdown-option label {
+.wd-dropdown__list__item .wd-dropdown__list__item__content {
     text-transform: capitalize;
     white-space: nowrap;
     overflow: hidden;
@@ -65,19 +74,11 @@
     font-weight: 400;
 }
 
-.dropdown-btn[aria-expanded=true]+.dropdown-list {
-    animation: fadein 0.3s ease-in-out forwards;
-}
-
-.dropdown-btn[aria-expanded=true] .dropdown-btn-icon {
-    animation: rotate 0.3s ease-in-out forwards;
-}
-
-.dropdown-option[aria-selected=true] {
+.wd-dropdown__list__item[aria-selected=true] .wd-dropdown__list__item__content {
     background-color: rgb(235, 235, 235);
 }
 
-.dropdown-option.chosen {
+.wd-dropdown__list__item.chosen .wd-dropdown__list__item__content {
     background: lightgrey;
 }
 
