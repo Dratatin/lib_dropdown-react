@@ -98,7 +98,7 @@ const useAccessibleDropdown = (options, value, setValue) => {
 }
 
 
-function Dropdown({ options, value, setValue, name, labelId }) {
+function Dropdown({ options, value, setValue, name, className, labelledby }) {
     const [input, setInput] = useState(options[0])
 
     const { isDropdownOpen, isFocus, activeIndex, setIsDropdownOpen, setIsFocus, setActiveIndex, handleKeyDown, wrapperRef } = useAccessibleDropdown(options, input, setInput)
@@ -111,29 +111,30 @@ function Dropdown({ options, value, setValue, name, labelId }) {
 
     return (
         <div
-            className={`dropdown-ctn ${name ? name + "-ctn" : ""}`}
+            className={`wd-dropdown ${className ? className : ""}`}
             ref={wrapperRef}
             onKeyDown={handleKeyDown}
         >
             <button
-                className={`dropdown-btn ${name ? name + "-btn" : ""}`}
+                className={`wd-dropdown__btn ${className ? className + "__btn" : ""}`}
                 onClick={() => {
                     setIsDropdownOpen(!isDropdownOpen);
                 }}
                 role="combobox"
                 aria-haspopup="listbox"
                 aria-controls={`${name}_dropdown`}
-                aria-labelledby={labelId}
+                aria-labelledby={labelledby}
                 aria-expanded={isDropdownOpen}
                 aria-activedescendant={`${name}_element_${input}`}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
             >
-                <span className={`dropdown-btn-content ${name ? name + "-btn-content" : ""}`}>{input}</span>
-                <img src={Arrow} alt="full arrow icon" className={`dropdown-btn-icon ${name ? name + "-icon" : ""}`}></img>
+                <span className={`wd-dropdown__btn__value ${className ? className + "__btn__value" : ""}`}>{input}</span>
+                <img src={Arrow} alt="full arrow icon" className={`wd-dropdown__btn__icon ${className ? className + "__btn__icon" : ""}`}></img>
             </button>
             <ul
-                className={`dropdown-list ${name ? name + "-list" : ""}`}
+                className={`wd-dropdown__list ${className ? className + "__list" : ""}`}
+                id={`${name}_dropdown`}
                 role="listbox"
                 tabIndex={-1}
                 aria-multiselectable={false}
@@ -141,12 +142,15 @@ function Dropdown({ options, value, setValue, name, labelId }) {
                 {options.map((option, index) => (
                     <li
                         key={option}
+                        id={`${name}_element_${option}`}
                         role="option"
                         aria-selected={index === activeIndex}
-                        className={`dropdown-option ${name ? name + "-opt" : ""} ${option === input ? "chosen" : ""}`}
+                        className={`wd-dropdown__list__item ${className ? className + "__list__item" : ""} ${option === input ? "chosen" : ""}`}
                         onMouseOver={() => setActiveIndex(index)}
                     >
-                        <label>
+                        <label
+                            className={`wd-dropdown__list__item__content ${className ? className + "__list__item__content" : ""}`}
+                        >
                             <input
                                 type="radio"
                                 name={`${name}_radio`}
@@ -164,6 +168,10 @@ function Dropdown({ options, value, setValue, name, labelId }) {
             </ul>
         </div >
     )
+}
+
+Dropdown.defaultProps = {
+    name: "basic",
 }
 
 export default Dropdown
