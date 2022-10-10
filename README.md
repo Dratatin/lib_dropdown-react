@@ -39,8 +39,8 @@ const MyComponent = () => {
 
 ## Features
 - Personalize the style of the dropdown with your className or overwrite style on the current className
-```
-.className{} (container)
+```css
+.className{} /*-----container-----*/
 
 .className__btn{}
 .className__btn__value{}
