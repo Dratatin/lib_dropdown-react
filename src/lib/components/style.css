@@ -1,6 +1,5 @@
 .wd-dropdown {
     position: relative;
-    display: block;
     width: 100%;
 }
 
@@ -9,11 +8,10 @@
 }
 
 .wd-dropdown__btn {
-    display: flex;
     width: 100%;
-    min-width: 0;
-    justify-content: space-between;
-    align-items: baseline;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
     padding: 8px 10px;
     gap: 10px;
     background: rgb(247, 247, 247);
@@ -25,8 +23,10 @@
 }
 
 .wd-dropdown__btn__icon {
-    flex-shrink: 0;
+    position: relative;
+    transform: translateY(20%);
     width: 8px;
+    justify-self: end;
 }
 
 .wd-dropdown__btn__value {
