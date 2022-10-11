@@ -7,6 +7,7 @@ const useAccessibleDropdown = (options, value, setValue) => {
     const [isFocus, setIsFocus] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const itemRef = useRef([])
     const wrapperRef = useRef(null);
 
     const handleKeyDown = (e) => {
@@ -23,12 +24,22 @@ const useAccessibleDropdown = (options, value, setValue) => {
             case 'Up':
             case 'ArrowUp':
                 e.preventDefault();
-                setActiveIndex(activeIndex <= 0 ? options.length - 1 : activeIndex - 1);
+                const indexUp = activeIndex <= 0 ? options.length - 1 : activeIndex - 1;
+                setActiveIndex(indexUp);
+                itemRef.current[indexUp].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                })
                 return;
             case 'Down':
             case 'ArrowDown':
                 e.preventDefault();
-                setActiveIndex(activeIndex + 1 === options.length ? 0 : activeIndex + 1);
+                const indexDown = activeIndex + 1 === options.length ? 0 : activeIndex + 1;
+                setActiveIndex(indexDown);
+                itemRef.current[indexDown].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                })
                 return;
             case 'Enter':
             case ' ': // Space
@@ -93,7 +104,8 @@ const useAccessibleDropdown = (options, value, setValue) => {
         setIsFocus,
         setActiveIndex,
         handleKeyDown,
-        wrapperRef
+        wrapperRef,
+        itemRef
     }
 }
 
@@ -101,7 +113,7 @@ const useAccessibleDropdown = (options, value, setValue) => {
 function Dropdown({ options, value, setValue, name, className, labelledby }) {
     const [input, setInput] = useState(options[0])
 
-    const { isDropdownOpen, isFocus, activeIndex, setIsDropdownOpen, setIsFocus, setActiveIndex, handleKeyDown, wrapperRef } = useAccessibleDropdown(options, input, setInput)
+    const { isDropdownOpen, isFocus, activeIndex, setIsDropdownOpen, setIsFocus, setActiveIndex, handleKeyDown, wrapperRef, itemRef } = useAccessibleDropdown(options, input, setInput)
 
     useEffect(() => {
         if (value && setValue) {
@@ -142,6 +154,7 @@ function Dropdown({ options, value, setValue, name, className, labelledby }) {
                 {options.map((option, index) => (
                     <li
                         key={option}
+                        ref={ref => itemRef.current[index] = ref}
                         id={`${name}_element_${option}`}
                         role="option"
                         aria-selected={index === activeIndex}

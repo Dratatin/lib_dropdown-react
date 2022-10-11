@@ -33,6 +33,7 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
       activeIndex = _useState6[0],
       setActiveIndex = _useState6[1];
 
+  var itemRef = (0, _react.useRef)([]);
   var wrapperRef = (0, _react.useRef)(null);
 
   var handleKeyDown = function handleKeyDown(e) {
@@ -50,13 +51,23 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
       case 'Up':
       case 'ArrowUp':
         e.preventDefault();
-        setActiveIndex(activeIndex <= 0 ? options.length - 1 : activeIndex - 1);
+        var indexUp = activeIndex <= 0 ? options.length - 1 : activeIndex - 1;
+        setActiveIndex(indexUp);
+        itemRef.current[indexUp].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
         return;
 
       case 'Down':
       case 'ArrowDown':
         e.preventDefault();
-        setActiveIndex(activeIndex + 1 === options.length ? 0 : activeIndex + 1);
+        var indexDown = activeIndex + 1 === options.length ? 0 : activeIndex + 1;
+        setActiveIndex(indexDown);
+        itemRef.current[indexDown].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
         return;
 
       case 'Enter':
@@ -131,7 +142,8 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
     setIsFocus: setIsFocus,
     setActiveIndex: setActiveIndex,
     handleKeyDown: handleKeyDown,
-    wrapperRef: wrapperRef
+    wrapperRef: wrapperRef,
+    itemRef: itemRef
   };
 };
 
@@ -156,7 +168,8 @@ function Dropdown(_ref) {
       setIsFocus = _useAccessibleDropdow.setIsFocus,
       setActiveIndex = _useAccessibleDropdow.setActiveIndex,
       handleKeyDown = _useAccessibleDropdow.handleKeyDown,
-      wrapperRef = _useAccessibleDropdow.wrapperRef;
+      wrapperRef = _useAccessibleDropdow.wrapperRef,
+      itemRef = _useAccessibleDropdow.itemRef;
 
   (0, _react.useEffect)(function () {
     if (value && setValue) {
@@ -199,6 +212,9 @@ function Dropdown(_ref) {
   }, options.map(function (option, index) {
     return /*#__PURE__*/_react.default.createElement("li", {
       key: option,
+      ref: function ref(_ref2) {
+        return itemRef.current[index] = _ref2;
+      },
       id: "".concat(name, "_element_").concat(option),
       role: "option",
       "aria-selected": index === activeIndex,
