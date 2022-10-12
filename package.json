@@ -9,6 +9,11 @@
     "dist",
     "README.md"
   ],
+  "keywords": [
+    "dropdown",
+    "react",
+    "react-dropdown"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Dratatin/lib_dropdown-react"

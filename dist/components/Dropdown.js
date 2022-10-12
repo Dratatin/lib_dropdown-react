@@ -33,6 +33,13 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
       activeIndex = _useState6[0],
       setActiveIndex = _useState6[1];
 
+  var _useState7 = (0, _react.useState)(options.findIndex(function (option) {
+    return option === value;
+  })),
+      _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
+      selectIndex = _useState8[0],
+      setSelectIndex = _useState8[1];
+
   var itemRef = (0, _react.useRef)([]);
   var wrapperRef = (0, _react.useRef)(null);
 
@@ -44,6 +51,13 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
     }
   };
 
+  var scrollToOption = function scrollToOption(index) {
+    itemRef.current[index].scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  };
+
   var openDropdownHandler = function openDropdownHandler(e) {
     e.preventDefault();
 
@@ -53,10 +67,7 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
         e.preventDefault();
         var indexUp = activeIndex <= 0 ? options.length - 1 : activeIndex - 1;
         setActiveIndex(indexUp);
-        itemRef.current[indexUp].scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        });
+        scrollToOption(indexUp);
         return;
 
       case 'Down':
@@ -64,10 +75,7 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
         e.preventDefault();
         var indexDown = activeIndex + 1 === options.length ? 0 : activeIndex + 1;
         setActiveIndex(indexDown);
-        itemRef.current[indexDown].scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        });
+        scrollToOption(indexDown);
         return;
 
       case 'Enter':
@@ -75,6 +83,7 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
         // Space
         e.preventDefault();
         setValue(options[activeIndex]);
+        setSelectIndex(activeIndex);
         setIsDropdownOpen(false);
         return;
 
@@ -111,9 +120,8 @@ var useAccessibleDropdown = function useAccessibleDropdown(options, value, setVa
       case 'Enter':
         e.preventDefault();
         setIsDropdownOpen(true);
-        setActiveIndex(options.findIndex(function (option) {
-          return option === value;
-        }));
+        setActiveIndex(selectIndex);
+        scrollToOption(selectIndex);
         break;
 
       default:
@@ -155,10 +163,10 @@ function Dropdown(_ref) {
       className = _ref.className,
       labelledby = _ref.labelledby;
 
-  var _useState7 = (0, _react.useState)(options[0]),
-      _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
-      input = _useState8[0],
-      setInput = _useState8[1];
+  var _useState9 = (0, _react.useState)(options[0]),
+      _useState10 = (0, _slicedToArray2.default)(_useState9, 2),
+      input = _useState10[0],
+      setInput = _useState10[1];
 
   var _useAccessibleDropdow = useAccessibleDropdown(options, input, setInput),
       isDropdownOpen = _useAccessibleDropdow.isDropdownOpen,

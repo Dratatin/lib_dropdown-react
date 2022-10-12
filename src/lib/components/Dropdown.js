@@ -6,6 +6,7 @@ const useAccessibleDropdown = (options, value, setValue) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [isFocus, setIsFocus] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [selectIndex, setSelectIndex] = useState(options.findIndex(option => option === value))
 
     const itemRef = useRef([])
     const wrapperRef = useRef(null);
@@ -18,7 +19,14 @@ const useAccessibleDropdown = (options, value, setValue) => {
         }
     }
 
-    const openDropdownHandler = e => {
+    const scrollToOption = (index) => {
+        itemRef.current[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+        })
+    }
+
+    const openDropdownHandler = (e) => {
         e.preventDefault()
         switch (e.key) {
             case 'Up':
@@ -26,25 +34,20 @@ const useAccessibleDropdown = (options, value, setValue) => {
                 e.preventDefault();
                 const indexUp = activeIndex <= 0 ? options.length - 1 : activeIndex - 1;
                 setActiveIndex(indexUp);
-                itemRef.current[indexUp].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                })
+                scrollToOption(indexUp)
                 return;
             case 'Down':
             case 'ArrowDown':
                 e.preventDefault();
                 const indexDown = activeIndex + 1 === options.length ? 0 : activeIndex + 1;
                 setActiveIndex(indexDown);
-                itemRef.current[indexDown].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                })
+                scrollToOption(indexDown)
                 return;
             case 'Enter':
             case ' ': // Space
                 e.preventDefault();
                 setValue(options[activeIndex]);
+                setSelectIndex(activeIndex)
                 setIsDropdownOpen(false);
                 return;
             case 'Esc':
@@ -74,9 +77,10 @@ const useAccessibleDropdown = (options, value, setValue) => {
             case 'ArrowDown':
             case ' ': // Space
             case 'Enter':
-                e.preventDefault()
+                e.preventDefault();
                 setIsDropdownOpen(true);
-                setActiveIndex(options.findIndex(option => option === value));
+                setActiveIndex(selectIndex);
+                scrollToOption(selectIndex)
                 break
             default:
         }
