@@ -190,7 +190,8 @@ function Dropdown(_ref) {
     onKeyDown: handleKeyDown
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "wd-dropdown__btn ".concat(className ? className + "__btn" : ""),
-    onClick: function onClick() {
+    onClick: function onClick(e) {
+      e.preventDefault();
       setIsDropdownOpen(!isDropdownOpen);
     },
     role: "combobox",

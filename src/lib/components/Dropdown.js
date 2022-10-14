@@ -133,7 +133,8 @@ function Dropdown({ options, value, setValue, name, className, labelledby }) {
         >
             <button
                 className={`wd-dropdown__btn ${className ? className + "__btn" : ""}`}
-                onClick={() => {
+                onClick={(e) => {
+                    e.preventDefault()
                     setIsDropdownOpen(!isDropdownOpen);
                 }}
                 role="combobox"
